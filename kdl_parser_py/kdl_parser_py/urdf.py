@@ -49,7 +49,8 @@ def _toKdlInertia(i):
             kdl.RotationalInertia(inertia.ixx, inertia.iyy, inertia.izz, inertia.ixy, inertia.ixz, inertia.iyz));
 
 def _toKdlJoint(jnt):
-
+    if jnt.axis is None:
+        jnt.axis = [1., 0., 0.]
     fixed = lambda j,F: kdl.Joint(
         j.name,
         getattr(kdl.Joint, 'Fixed') if hasattr(kdl.Joint, 'Fixed') else getattr(kdl.Joint, 'None'))
